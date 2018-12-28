@@ -20,8 +20,10 @@ find_package(catkin REQUIRED COMPONENTS
 )
 find_package(Boost REQUIRED COMPONENTS system)
 
+catkin_package()
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
-add_executable(leg_trajectory_client src/leg_trajectory_client.cc)
+add_executable(leg_trajectory_client src/leg_trajectory_client.cpp)
 target_link_libraries(leg_trajectory_client ${catkin_LIBRARIES})
+add_dependencies(leg_trajectory_client ${catkin_EXPORTED_TARGETS} ${ardent_locomotion_planner_EXPORTED_TARGETS})

@@ -18,13 +18,17 @@ class LegParabola
             leg_id = leg_id_;
             //spin thread by default
             //defines the namespace and target leg_action_server, where the info will be published
-            traj_client = new Client("leg_"+leg_id+"_traj_controller/leg_action_server",true);
+            //topics sent out are along this path
+            traj_client = new Client("leg_"+leg_id+"_traj_controller/joint_trajectory_action_server", true);
             while(!traj_client->waitForServer(ros::Duration(5.0))){
-                ROS_INFO("Waiting for the joint_trajectory_action server");
+                ROS_INFO("Waiting for the joint_trajectory_action_server server");
             }
         }
 
-        ~LegParabola(){ delete traj_client;}
+        ~LegParabola()
+        {
+             delete traj_client;
+        }
 
         // Send the command to start a given trajectory goal
         void startTrajectory(ardent_controllers_msgs::JointTrajectoryGoal goal)
@@ -86,7 +90,9 @@ class LegParabola
 
 int main(int argc, char** argv)
 {
+    // Client node name
     ros::init(argc, argv, "leg_trajectory_client");
+    
     LegParabola leg("rf");
     ardent_controllers_msgs::JointTrajectoryGoal goalTraj = leg.createLegTrajectory();
     leg.startTrajectory(goalTraj);
