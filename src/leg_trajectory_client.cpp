@@ -20,9 +20,9 @@ class LegParabola
             //defines the namespace and target leg_action_server, where the info will be published
             //topics sent out are along this path
            // traj_client = new Client("leg_rf_traj_controller/joint_trajectory_action_server", true);
-            traj_client = new Client("joint_trajectory_action_server",true);    
+            traj_client = new Client("leg_rf_traj_controller/joint_trajectory_action",true);    
             while(!traj_client->waitForServer(ros::Duration(5.0))){
-                ROS_INFO("Waiting for the leg_%s_traj_controller/joint_trajectory_action_server",leg_id.c_str());
+                ROS_INFO("Waiting for the leg_rf_traj_controller/joint_trajectory_action");//,leg_id.c_str());
             }
         }
 
