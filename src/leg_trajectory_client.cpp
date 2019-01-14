@@ -24,6 +24,7 @@ class LegParabola
             while(!traj_client->waitForServer(ros::Duration(5.0))){
                 ROS_INFO("Waiting for the leg_rf_traj_controller/joint_trajectory_action");//,leg_id.c_str());
             }
+            ROS_INFO("Connected to leg_rf_traj_controller/joint_trajectory_action");
         }
 
         ~LegParabola()
@@ -109,6 +110,7 @@ int main(int argc, char** argv)
     leg.startTrajectory(goalTraj);
     while(!leg.getState().isDone() && ros::ok())
     {
+        usleep(50000);
         ROS_INFO("Running leg trajectory");
     }
     return 0;
