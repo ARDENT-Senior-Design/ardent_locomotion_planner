@@ -9,7 +9,6 @@ project(ardent_locomotion_planner)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   actionlib
-  ardent_controllers_msgs
   geometry_msgs
   message_filters
   roscpp
@@ -23,7 +22,3 @@ find_package(Boost REQUIRED COMPONENTS system)
 catkin_package()
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
-
-add_executable(leg_trajectory_client src/leg_trajectory_client.cpp)
-target_link_libraries(leg_trajectory_client ${catkin_LIBRARIES})
-add_dependencies(leg_trajectory_client ${catkin_EXPORTED_TARGETS} ${ardent_locomotion_planner_EXPORTED_TARGETS})
