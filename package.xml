@@ -51,14 +51,18 @@
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>actionlib</build_depend>
   <build_depend>geometry_msgs</build_depend>
+  <build_depend>moveit_core </build_depend>
+  <build_depend>moveit_ros_planning </build_depend>
+  <build_depend>moveit_ros_planning_interface </build_depend>
+  <build_depend>moveit_visual_tools</build_depend>
   <build_depend>message_filters</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>tf_conversions</build_depend>
   <build_depend>trajectory_msgs</build_depend>
+  <build_depend>rospy</build_depend>
   <build_export_depend>actionlib</build_export_depend>
-  <build_export_depend>ardent_controllers_msgs</build_export_depend>
   <build_export_depend>geometry_msgs</build_export_depend>
   <build_export_depend>message_filters</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
@@ -74,6 +78,11 @@
   <exec_depend>tf</exec_depend>
   <exec_depend>tf_conversions</exec_depend>
   <exec_depend>trajectory_msgs</exec_depend>
+  <exec_depend>moveit_core </exec_depend>
+  <exec_depend>moveit_ros_planning </exec_depend>
+  <exec_depend>moveit_ros_planning_interface </exec_depend>
+  <exec_depend>moveit_visual_tools</exec_depend>
+  <exec_depend>rospy</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
