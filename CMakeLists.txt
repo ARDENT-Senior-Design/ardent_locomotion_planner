@@ -30,5 +30,9 @@ add_executable(leg_move_interface_test scripts/leg_move_interface_test.cpp)
 target_link_libraries(leg_move_interface_test ${catkin_LIBRARIES})
 
 
+add_executable(add_object scripts/add_object.cpp)
+target_link_libraries(add_object ${catkin_LIBRARIES})
+
+
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 # install(TARGETS ${PROJECT_NAME} DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

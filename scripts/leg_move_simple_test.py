@@ -7,6 +7,7 @@ import moveit_commander
 import moveit_msgs.msg
 import geometry_msgs.msg
 import geometry_msgs.msg
+import trajectory_msgs.msg
 import tf
 
 moveit_commander.roscpp_initialize(sys.argv)

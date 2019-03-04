@@ -1,14 +1,24 @@
 
+// Planning and coordination interface
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
 
+// Robot visualization
 #include <moveit_msgs/DisplayRobotState.h>
 #include <moveit_msgs/DisplayTrajectory.h>
 
+// Collision tools
 #include <moveit_msgs/AttachedCollisionObject.h>
 #include <moveit_msgs/CollisionObject.h>
 
+// Rviz visual tools
 #include <moveit_visual_tools/moveit_visual_tools.h>
+
+// Robot State
+#include <ros/ros.h>
+#include <moveit/robot_model_loader/robot_model_loader.h>
+#include <moveit/robot_model/robot_model.h>
+#include <moveit/robot_state/robot_state.h>
 
 int main(int argc, char** argv)
 {
@@ -54,7 +64,7 @@ int main(int argc, char** argv)
 
     // RViz provides many types of markers, in this demo we will use text, cylinders, and spheres
     Eigen::Isometry3d text_pose = Eigen::Isometry3d::Identity();
-    text_pose.translation().z() = 1.75;
+    text_pose.translation().z() = 1.0;
     visual_tools.publishText(text_pose, "MoveGroupInterface Demo", rvt::WHITE, rvt::XLARGE);
 
     // Batch publishing is used to reduce the number of messages being sent to RViz for large visualizations
@@ -84,9 +94,9 @@ int main(int argc, char** argv)
     // end-effector.
     geometry_msgs::Pose target_pose1;
     // target_pose1.orientation.w = 1.0;
-    target_pose1.position.x = 0.28;
-    target_pose1.position.y = -0.2;
-    target_pose1.position.z = 0.25;
+    target_pose1.position.x = 0.4;
+    target_pose1.position.y = -0.3;
+    target_pose1.position.z = 0.0;
     move_group.setPoseTarget(target_pose1);
 
     // Now, we call the planner to compute the plan and visualize it.
@@ -137,7 +147,7 @@ int main(int argc, char** argv)
     current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
 
     // Now, let's modify one of the joints, plan to the new joint space goal and visualize the plan.
-    joint_group_positions[0] = -1.0;  // radians
+    joint_group_positions[0] = 0.0;  // radians
     move_group.setJointValueTarget(joint_group_positions);
 
     success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
@@ -163,6 +173,7 @@ int main(int argc, char** argv)
     ocm.absolute_x_axis_tolerance = 0.1;
     ocm.absolute_y_axis_tolerance = 0.1;
     ocm.absolute_z_axis_tolerance = 0.1;
+    // Weighing factor. If it's closer to zero, it's less important
     ocm.weight = 1.0;
 
     // Now, set it as the path constraint for the group.
@@ -175,13 +186,13 @@ int main(int argc, char** argv)
     // satisfies the path constraints. So, we need to set the start
     // state to a new pose.
     robot_state::RobotState start_state(*move_group.getCurrentState());
+    move_group.setStartState(start_state);
     geometry_msgs::Pose start_pose2;
     // start_pose2.orientation.w = 1.0;
-    start_pose2.position.x = 0.0;
-    start_pose2.position.y = 0.2;
-    start_pose2.position.z = 0.3;
+    start_pose2.position.x = 0.3;
+    start_pose2.position.y = -0.1;
+    start_pose2.position.z = 0.15;
     start_state.setFromIK(joint_model_group, start_pose2);
-    move_group.setStartState(start_state);
 
     // Now we will plan to the earlier pose target from the new
     // start state that we have just created.
